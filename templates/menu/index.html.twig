@@ -1,0 +1,5 @@
+{% for a in animals %}
+<li class="nav-item">
+    <a href="{{ path("see_animals", {"idaAnimal":a.id}) }}">{{ a.spicies }}</a>
+</li>
+{% endfor %}

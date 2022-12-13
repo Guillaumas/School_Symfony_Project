@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zoofony{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="exemple-wrapper">
+        <h1>Your animals</h1>
+        <table class="table table-stripped">
+            <tr>
+                <th>ID number</th>
+                <th>Name</th>
+                <th>Birth Date</th>
+                <th>Arrival date</th>
+                <th>Departure date</th>
+                <th>Zoo?</th>
+                <th>Specie</th>
+                <th>Type</th>
+                <th>Gender</th>
+                <th>Strerilized</th>
+                <th>Quarantine</th>
+                <th></th>
+            </tr>
+            {% for a in animals %}
+                <tr>
+                    <td>{{ a.identificationNumber }}</td>
+                    <td>{{ a.name }}</td>
+                    {# je force le type psq ça pue
+                    Je le fais en ce format car c'est le format à l'anglaise comme ils ont perdu au foot
+                    et il mange comme des gens compliqués qui aiment pas les légumes #}
+                    <td>{{ a.brithDate|date('Y-m-d') }}</td>
+                    <td>{{ a.arrivalDate|date('Y-m-d') }}</td>
+                    <td>{{ a.departureDate|date('Y-m-d') }}</td>
+                    <td>{{ a.property }}</td>
+                    <td>{{ a.species }}</td>
+                    <td>{{ a.type }}</td>
+                    <td>{{ a.gender }}</td>
+                    <td>{{ a.sterilized }}</td>
+                    <td>{{ a.quarantaine }}</td>
+                    <td>
+                        <a href="{{ path("modify_animal", {"id":a.id}) }}" class="btn btn-warning">modify</a>
+                        <a href="{{ path("delete_animal", {"id":a.id}) }}" class="btn btn-danger">delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>Add an animal to the zoo</h2>
+        {{ form(formular) }}
+    </div>
+{% endblock %}
