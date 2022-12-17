@@ -41,7 +41,7 @@ class PaddockController extends AbstractController
     /**
      * @Route ("/paddock/modify/{id}", name="modify_paddock")
      */
-    public function modifyPAddock($id, ManagerRegistry $doctrine, Request $request)
+    public function modifyPaddock($id, ManagerRegistry $doctrine, Request $request)//modifyPAddock to modifyPadock
     {
         $paddock = $doctrine->getRepository(Paddock::class)->find($id);
         if (!$paddock) {
@@ -71,7 +71,7 @@ class PaddockController extends AbstractController
     /**
      * @Route ("/paddock/delete/{id}", name="delete_paddock")
      */
-    public function deleteAnimal($id, ManagerRegistry $doctrine, Request $request)
+    public function deletePaddock($id, ManagerRegistry $doctrine, Request $request) //deleteAnimal to deletePaddock
     {
         $paddock = $doctrine->getRepository(Paddock::class)->find($id);
         if (!$paddock) {

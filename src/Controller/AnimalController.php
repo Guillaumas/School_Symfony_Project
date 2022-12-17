@@ -110,6 +110,7 @@ class AnimalController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($animal);
             $em->flush();
+            return $this->redirectToRoute("app_home");
         }
 
         $repository = $doctrine->getRepository(Animal::class);
@@ -118,6 +119,7 @@ class AnimalController extends AbstractController
         return $this->render('animal/index.html.twig', [
             'animals' => $animal,
             'formular' => $form->createView(),
+
         ]);
 
 

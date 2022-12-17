@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,18 +20,20 @@ class AnimalType extends AbstractType
     {
         $builder
             ->add('identificationNumber')
-            ->add('name')
+            ->add('name', TextareaType::class, ['required'=>false,'empty_data' => '',])
             ->add('brithDate', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'empty_data' => '',
             ])
             ->add('arrivalDate', DateType::class, [
                 'widget' => 'single_text',
-                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01',],
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01',]   ,
             ])
             ->add('departureDate', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'empty_data' => '',
             ])
             ->add('type')
             ->add('property')

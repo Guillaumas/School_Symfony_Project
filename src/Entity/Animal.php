@@ -129,7 +129,7 @@ class Animal
         return $this->arrivalDate;
     }
 
-    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    public function setArrivalDate(?\DateTimeInterface $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 

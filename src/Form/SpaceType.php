@@ -21,9 +21,9 @@ class SpaceType extends AbstractType
             ->add('name')
             ->add('size')
             ->add('openDate', DateType::class,['widget' => 'single_text',
-                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'],'required'=>false])
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'],'required'=>false,'empty_data' => '',])
             ->add('closeDate', DateType::class,['widget' => 'single_text',
-                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'], 'required'=>false])
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'], 'required'=>false,'empty_data' => '',])
             // BY SIMON //
             ->add('paddocks', EntityType::class, [
                 'class' => Paddock::class,
