@@ -30,6 +30,7 @@ class AnimalController extends AbstractController
         $animals = $repo->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $data = $form->getData();
             //DDN condition
             if ($data->getBrithDate() == null || ($data->getBrithDate()->getTimestamp() <= $data->getArrivalDate()->getTimestamp())) {
@@ -45,32 +46,42 @@ class AnimalController extends AbstractController
                         ]);
                         //Si mon string est bien des nombres uniquement et fait 14 de long
                     } else if (strlen($data->getIdentificationNumber()) == 14 && ctype_digit($data->getIdentificationNumber())) {
-                        $entityManager = $doctrine->getManager();
-                        $entityManager->persist($data);
-                        $entityManager->flush();
+
+                        // BY SIMON
+                        if ($data->getPaddock()->getMaxAnimals() > sizeof($data->getPaddock()->getAnimals())) {
+                            $entityManager = $doctrine->getManager();
+                            $entityManager->persist($data);
+                            $entityManager->flush();
+                            return $this->redirectToRoute("app_home"); //"Actualise" la page, affiche les currents animals
+
+                        }else {
+                            $this->addFlash("error", "Not enough place in your Paddock");
+                        }
+                        // BY SIMON
+
                     } else {
                         //je dégage pour l'id
                         $this->addFlash('error', 'the id must 14 NUMBERS long');
-                        return $this->render('animal/index.html.twig', [
-                            'animals' => $animals,
-                            'formular' => $form->createView(),
-                        ]);
+//                        return $this->render('animal/index.html.twig', [
+//                            'animals' => $animals,
+//                            'formular' => $form->createView(),
+//                        ]);
                     }
                 } else {
                     //je dégage pour la DDD
                     $this->addFlash('error', "the departure date must be later than the arrival date, logic isn't it?");
-                    return $this->render('animal/index.html.twig', [
-                        'animals' => $animals,
-                        'formular' => $form->createView(),
-                    ]);
+//                    return $this->render('animal/index.html.twig', [
+//                        'animals' => $animals,
+//                        'formular' => $form->createView(),
+//                    ]);
                 }
             } else {
                 //je dégage pour la DDN
                 $this->addFlash('error', "Birth date must be sonner than the arrival date");
-                return $this->render('animal/index.html.twig', [
-                    'animals' => $animals,
-                    'formular' => $form->createView(),
-                ]);
+//                return $this->render('animal/index.html.twig', [
+//                    'animals' => $animals,
+//                    'formular' => $form->createView(),
+//                ]);
             }
         }
         return $this->render("animal/index.html.twig", [

@@ -1,17 +1,54 @@
 {% extends 'base.html.twig' %}
 {% block title %}Zoofony{% endblock %}
 {% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="exemple-wrapper">
+    <h1>Your paddocks</h1>
+    <table class="table table-stripped">
+        <tr>
+            <th>Name</th>
+            <th>Space</th>
+            <th>Area</th>
+            <th>Nombre d'animal max</th>
+            <th>En Quarantaine</th>
+            <th>Animals</th>
+            <th></th>
+        </tr>
+        {% for p in paddocks %}
+            <tr>
+                <td>{{ p.Name }}</td>
+                <td>{{ p.Space }}</td>
+                <td>{{ p.Area }}</td>
+                <td>{{ p.MaxAnimals }}</td>
+                {% if p.Quarantine == 1 %}
+                    <td>oui</td>
+                {% else %}
+                    <td>non</td>
+                {% endif %}
+                <td>
+                {% for a in p.Animals %}
+                    {{ a.name }}
+                {% endfor %}
+                    </td>
+                <td>
+                    <a href="{{ path("modify_paddock", {"id":p.id}) }}" class="btn btn-warning">modify</a>
+                    <a href="{{ path("delete_paddock", {"id":p.id}) }}" class="btn btn-danger">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
 
-<h1>CACA</h1>
+        {#        {% for p in paddocks %} #}
+        {#            <li class="nav-item"> #}
+        {#                <a href="{{ path("app_paddock") }}">{{ p.name }}</a> #}
+        {#            </li> #}
+        {#        {% endfor %} #}
+    </table>
 
-{% for p in paddocks %}
-    <li class="nav-item">
-        <a href="{{ path("app_paddock") }}">{{ p.name }}</a>
-    </li>
-{% endfor %}
 
-
-<h2>Add a Paddock to the zoo</h2>
-{{ form(formular) }}
+    <h2>Add a Paddock to the zoo</h2>
+    {{ form(formular) }}
 {% endblock %}
-

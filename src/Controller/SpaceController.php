@@ -16,7 +16,7 @@ class SpaceController extends AbstractController
 {
 
     /**
-     * @Route("/spaces/", name="spaces")
+     * @Route("/spaces", name="spaces")
      */
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
@@ -29,9 +29,24 @@ class SpaceController extends AbstractController
         $spaces = $repo->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-//            if (($data->getOpenDate() != NULL) && ($data->getOpenDate()->getTimestamp() <= $data->getCloseDate()->getTimestamp()){
-//
-//            }
+            if ((($data->getOpenDate() != NULL) && ($data->getOpenDate()->getTimestamp() <= $data->getCloseDate()->getTimestamp())) || $data->getOpenDate() == NULL){
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($data);
+                $entityManager->flush();
+            }
+            else if ($data->getOpenDate() == NULL && $data->getCloseDate() != NULL){
+                $this->addFlash('error', "If there's a closing date, there must be a opening date dude");
+                return $this->render('space/index.html.twig', [
+                    'spaces' => $spaces,
+                    'formular' => $form->createView(),
+                ]);
+            }else if ($data->getOpenDate() != NULL && $data->getCloseDate() != NULL && $data->getCloseDate()->getTimestamp() < $data->getOpenDate()->getTimestamp()){
+                $this->addFlash('error', "the closing date must be later than the opening date, logic isn't it?");
+                return $this->render('space/index.html.twig', [
+                    'spaces' => $spaces,
+                    'formular' => $form->createView(),
+                ]);
+            }
         }
 
         return $this->render("space/index.html.twig", [
@@ -66,7 +81,7 @@ class SpaceController extends AbstractController
         $spaces = $repository->findAll();
 
         return $this->render('animal/index.html.twig', [
-            'space' => $space,
+            'spaces' => $spaces,
             'formular' => $form->createView(),
         ]);
 

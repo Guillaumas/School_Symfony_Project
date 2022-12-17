@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Space;
+use App\Entity\Paddock;
+
+use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,8 +20,18 @@ class SpaceType extends AbstractType
         $builder
             ->add('name')
             ->add('size')
-            ->add('openDate')
-            ->add('closeDate')
+            ->add('openDate', DateType::class,['widget' => 'single_text',
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'],])
+            ->add('closeDate', DateType::class,['widget' => 'single_text',
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01'],])
+            // BY SIMON //
+            ->add('Paddock', EntityType::class, [
+                'class' => Paddock::class,
+                'choice_label' => "name",
+                'multiple' => false,
+                'expanded' => false
+            ])
+            ->add('OK', SubmitType::class, ["label" => "OK"]);
         ;
     }
 

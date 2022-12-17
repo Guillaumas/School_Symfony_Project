@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Delete your animal cuz he dead{% endblock %}
+{% block title %}Delete your space{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Are you sure you really want to delete {{ animal.name }}?</h1>
+        <h1>Are you sure you really want to delete {{ space.name }}?</h1>
         {{ form(formular) }}
         <a href="{{ path("app_home") }}" class="btn btn-secondary">Undo</a>
     </div>

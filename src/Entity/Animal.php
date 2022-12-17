@@ -72,6 +72,17 @@ class Animal
      */
     private $quarantaine;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Paddock::class, inversedBy="animals")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $Paddock;
+
+//    /**
+//     * @ORM\ManyToOne(targetEntity=Paddock::class, inversedBy="Animals")
+//     */
+//    private $paddock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,4 +219,28 @@ class Animal
 
         return $this;
     }
+
+//    public function getPaddock(): ?Paddock
+//    {
+//        return $this->paddock;
+//    }
+//
+//    public function setPaddock(?Paddock $paddock): self
+//    {
+//        $this->paddock = $paddock;
+//
+//        return $this;
+//    }
+
+public function getPaddock(): ?Paddock
+{
+    return $this->Paddock;
+}
+
+public function setPaddock(?Paddock $Paddock): self
+{
+    $this->Paddock = $Paddock;
+
+    return $this;
+}
 }

@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Animal;
+use App\Entity\Paddock;
+use App\Entity\Space;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -42,6 +45,16 @@ class AnimalType extends AbstractType
             ])
             ->add('sterilized')
             ->add('quarantaine')
+
+            // BY SIMON //
+            ->add('Paddock', EntityType::class, [
+                'class' => Paddock::class,
+                'choice_label' => "name",
+                'multiple' => false,
+                'expanded' => false
+            ])
+            // BY SIMON // 
+
             ->add('OK', SubmitType::class, ["label" => "OK"]);
     }
 

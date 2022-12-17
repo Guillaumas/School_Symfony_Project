@@ -23,6 +23,7 @@
                 <th>Gender</th>
                 <th>Strerilized</th>
                 <th>Quarantine</th>
+                <th>Paddock</th>
                 <th></th>
             </tr>
             {% for a in animals %}
@@ -41,6 +42,11 @@
                     <td>{{ a.gender }}</td>
                     <td>{{ a.sterilized }}</td>
                     <td>{{ a.quarantaine }}</td>
+                    <td>
+                    {% if a.Paddock is not null %}
+                    {{ a.Paddock.name }}
+                    {% endif %}
+                    </td>
                     <td>
                         <a href="{{ path("modify_animal", {"id":a.id}) }}" class="btn btn-warning">modify</a>
                         <a href="{{ path("delete_animal", {"id":a.id}) }}" class="btn btn-danger">delete</a>
