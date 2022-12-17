@@ -17,6 +17,7 @@
                 <th>First Name</th>
                 <th>Opening Date</th>
                 <th>Closing Date</th>
+                <th>Paddocks</th>
                 <th></th>
             </tr>
             {% for s in spaces %}
@@ -26,6 +27,11 @@
                     <td>{{ s.size }}</td>
                     <td>{{ s.openDate|date('Y-m-d') }}</td>
                     <td>{{ s.closeDate|date('Y-m-d') }}</td>
+                    <td>
+                        {% for p in s.paddocks %}
+                            {{ p.name }}
+                        {% endfor %}
+                    </td>
                     <td>
                         <a href="{{ path("modify_space", {"id":s.id}) }}" class="btn btn-warning">modify</a>
                         <a href="{{ path("delete_space", {"id":s.id}) }}" class="btn btn-danger">delete</a>

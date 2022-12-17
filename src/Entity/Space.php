@@ -35,7 +35,7 @@ class Space
     private $openDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $closeDate;
 
@@ -47,6 +47,10 @@ class Space
     public function __construct()
     {
         $this->paddocks = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -95,7 +99,7 @@ class Space
         return $this->closeDate;
     }
 
-    public function setCloseDate(\DateTimeInterface $closeDate): self
+    public function setCloseDate(?\DateTimeInterface $closeDate): self
     {
         $this->closeDate = $closeDate;
 

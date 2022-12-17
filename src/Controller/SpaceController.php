@@ -29,7 +29,7 @@ class SpaceController extends AbstractController
         $spaces = $repo->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            if ((($data->getOpenDate() != NULL) && ($data->getOpenDate()->getTimestamp() <= $data->getCloseDate()->getTimestamp())) || $data->getOpenDate() == NULL){
+            if ((($data->getOpenDate()) && ($data->getOpenDate()->getTimestamp() <= $data->getCloseDate()->getTimestamp())) || !$data->getCloseDate()){
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($data);
                 $entityManager->flush();
