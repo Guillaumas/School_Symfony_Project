@@ -33,6 +33,7 @@ class SpaceController extends AbstractController
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($data);
                 $entityManager->flush();
+                return $this->redirectToRoute("spaces"); //"Actualise" la page, affiche les currents animals
             }
             else if ($data->getOpenDate() == NULL && $data->getCloseDate() != NULL){
                 $this->addFlash('error', "If there's a closing date, there must be a opening date dude");
@@ -75,12 +76,13 @@ class SpaceController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($space);
             $em->flush();
+            return $this->redirectToRoute("spaces"); //"Actualise" la page, affiche les currents animals
         }
 
         $repository = $doctrine->getRepository(Space::class);
         $spaces = $repository->findAll();
 
-        return $this->render('animal/index.html.twig', [
+        return $this->render('space/index.html.twig', [
             'spaces' => $spaces,
             'formular' => $form->createView(),
         ]);

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modify the PAddock{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Modify the paddock <i>{{ paddock.name }}</i></h1>
+        {{ form(formular) }}
+    </div>
+{% endblock %}
