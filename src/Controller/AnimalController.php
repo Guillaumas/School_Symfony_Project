@@ -36,7 +36,7 @@ class AnimalController extends AbstractController
                 //DDD condition
                 if ($data->getDepartureDate() == null || $data->getDepartureDate()->getTimestamp() > $data->getArrivalDate()->getTimestamp()) {
                     //Si sexe non précisé et stérilisé, alors je dégage
-                    if ($data->getGender() == "undefined" && $data->isSterilized() == true) {
+                    if ($data->getGender() == "undefined" && $data->isSterilized()) {
                         //je dégage pour le sexe
                         $this->addFlash('error', "You can't know if he's strerilized if ou didn't check his pp right?");
                         return $this->render('animal/index.html.twig', [
@@ -105,7 +105,7 @@ class AnimalController extends AbstractController
         $animals = $repository->findAll();
 
         return $this->render('animal/index.html.twig', [
-            'animal' => $animal,
+            'animals' => $animal,
             'formular' => $form->createView(),
         ]);
 

@@ -23,7 +23,7 @@ class AnimalType extends AbstractType
             ])
             ->add('arrivalDate', DateType::class, [
                 'widget' => 'single_text',
-                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01', 'value' => date('Y-m-d')],
+                'attr' => ['min' => '1980-01-01', 'max' => '2100-01-01',],
             ])
             ->add('departureDate', DateType::class, [
                 'widget' => 'single_text',

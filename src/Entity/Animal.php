@@ -149,7 +149,7 @@ class Animal
         return $this;
     }
 
-    public function getGender(): ?bool
+    public function getGender(): string
     {
         return $this->gender;
     }

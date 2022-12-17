@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Zoofony{% endblock %}
+{% block body %}
+
+<h1>CACA</h1>
+
+{% for p in paddocks %}
+    <li class="nav-item">
+        <a href="{{ path("app_paddock") }}">{{ p.name }}</a>
+    </li>
+{% endfor %}
+
+
+<h2>Add a Paddock to the zoo</h2>
+{{ form(formular) }}
+{% endblock %}
+
